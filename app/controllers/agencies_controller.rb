@@ -1,12 +1,7 @@
 class AgenciesController < ApplicationController
 
   def index
-    @agencies = [
-        {
-          "id": 1,
-          "name": 'TriMet'
-        }
-      ]
+    @agencies = Agency.all
     json_response(@agencies)
   end
 

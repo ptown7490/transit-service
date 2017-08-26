@@ -11,8 +11,9 @@ This project is an API that provides transit data.
 ## Setup
 1. Set project root as working directory in CLI after cloning repo.
 2. Run `$ bundle install`
-3. Run `$ rails s`.
-4. Visit **`localhost:3000`**  in web browser.
+3. Run `$ rake db:setup`
+4. Run `$ rails s`.
+5. Visit **`localhost:3000`**  in web browser.
 
 
 ## Project creation
@@ -21,6 +22,10 @@ This project is an API that provides transit data.
 * `$ cd transit_service`
 * `$ bundle install`
 * `$ rails g rspec:install`
+* `$ rake db:create`
+* `$ rails g migration create_agencies`
+* `$ rake db:migrate`
+
 
 
 ## Technologies Used
