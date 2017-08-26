@@ -20,6 +20,7 @@ This project is an API that provides transit data.
 * `$ rails new transit_service --api`
 * `$ cd transit_service`
 * `$ bundle install`
+* `$ rails g rspec:install`
 
 
 ## Technologies Used
@@ -31,6 +32,10 @@ This project is an API that provides transit data.
 
 ## Specs
 
+
+## Testing
+
+* Run `$ rspec`
 
 
 ## Known Bugs
