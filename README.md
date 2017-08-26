@@ -1,24 +1,48 @@
-# README
+# TransitService
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+#### API service that provides transit data, 08.25.2017
 
-Things you may want to cover:
+#### By _**Patrick McGreevy**_
 
-* Ruby version
+## Description
+This project is an API that provides transit data.
 
-* System dependencies
 
-* Configuration
+## Setup
+1. Set project root as working directory in CLI after cloning repo.
+2. Run `$ bundle install`
+3. Run `$ rails s`.
+4. Visit **`localhost:3000`**  in web browser.
 
-* Database creation
 
-* Database initialization
+## Project creation
 
-* How to run the test suite
+* `$ rails new transit_service --api`
+* `$ cd transit_service`
+* `$ bundle install`
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+## Technologies Used
 
-* ...
+* Ruby/Gems
+* Rails
+* PostgreSQL
+
+
+## Specs
+
+
+
+## Known Bugs
+
+_No known bugs._
+
+## Support
+_Please contact patrick7490@icloud.com with questions or concerns._
+
+
+### License
+
+*MIT License*
+
+Copyright (c) 2017 _**Patrick McGreevy**_
