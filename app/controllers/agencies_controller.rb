@@ -26,10 +26,6 @@ class AgenciesController < ApplicationController
   end
 
   private
-  def json_response(object)
-    render json: object, status: :ok
-  end
-
   def agency_params
     params.require(:agency).permit(:name)
   end
