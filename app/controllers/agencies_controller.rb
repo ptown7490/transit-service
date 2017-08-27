@@ -11,7 +11,7 @@ class AgenciesController < ApplicationController
   end
 
   def create
-    @agency = Agency.create(agency_params)
+    @agency = Agency.create!(agency_params)
     json_response(@agency)
   end
 
