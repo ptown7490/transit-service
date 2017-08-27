@@ -12,7 +12,7 @@ class AgenciesController < ApplicationController
 
   def create
     @agency = Agency.create!(agency_params)
-    json_response(@agency)
+    json_response(@agency, :created)
   end
 
   def update
