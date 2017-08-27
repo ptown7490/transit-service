@@ -17,7 +17,11 @@ class AgenciesController < ApplicationController
 
   def update
     @agency = Agency.find(params[:id])
-    @agency.update(agency_params)
+    if @agency.update!(agency_params)
+      render status: 200, json: {
+        message: "Agency has been updated successfully."
+      }
+    end
   end
 
   def destroy
