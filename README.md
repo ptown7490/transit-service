@@ -37,6 +37,9 @@ This project is an API that provides transit data.
 
 ## Specs
 
+* Provide TriMet's WES schedule data.
+* Provide routing solutions between WES stations.
+
 
 ## Testing
 
