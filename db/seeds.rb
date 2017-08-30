@@ -6,6 +6,7 @@ class Seed
     seed.generate_routes(1)
     seed.generate_route_directions(1)
     seed.generate_stops(1)
+    seed.generate_trips
   end
 
   def generate_agencies
@@ -79,6 +80,15 @@ class Seed
                  longitude:  -122.769834,
                  id:         6
                 )
+  end
+
+  def generate_trips
+    16.times do
+      Trip.create!(route_direction_id:  0)
+    end
+    16.times do
+      Trip.create!(route_direction_id:  1)
+    end
   end
 
 end
