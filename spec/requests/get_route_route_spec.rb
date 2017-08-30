@@ -19,4 +19,14 @@ describe "get specific route route", type: :request do
   it 'returns status code 200' do
     expect(response).to have_http_status(:success)
   end
+
+  context "when route is not found" do
+    before do
+      get '/routes/2'
+    end
+
+    it 'returns status code 404' do
+      expect(response).to have_http_status(:not_found)
+    end
+  end
 end
