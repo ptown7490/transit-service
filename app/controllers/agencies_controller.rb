@@ -26,7 +26,11 @@ class AgenciesController < ApplicationController
 
   def destroy
     @agency = Agency.find(params[:id])
-    @agency.destroy
+    if @agency.destroy!
+      render status: 204, json: {
+        message: "Agency has been deleted successfully."
+      }
+    end
   end
 
   private
