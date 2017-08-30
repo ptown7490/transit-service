@@ -6,7 +6,7 @@ describe "get all agencies route", type: :request do
   before { get '/agencies' }
 
   it 'returns all agencies' do
-    expect(JSON.parse(response.body).size).to eq 1
+    expect(jsonParseBody(response).size).to eq 1
   end
 
   it 'returns status code 200' do

@@ -7,7 +7,7 @@ describe "post an agency route", type: :request do
   end
 
   it 'returns the agency name' do
-    expect(JSON.parse(response.body)['name']).to eq 'CTA'
+    expect(jsonParseBody(response)['name']).to eq 'CTA'
   end
 
   it 'returns a created status' do
