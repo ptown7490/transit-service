@@ -13,15 +13,14 @@ describe "post an agency route", type: :request do
   it 'returns a created status' do
     expect(response).to have_http_status(:created)
   end
-end
 
-describe "post an agency route (misused)", type: :request do
+  context "when params are invalid" do
+    before do
+      post '/agencies', params: { }
+    end
 
-  before do
-    post '/agencies', params: { }
-  end
-
-  it 'returns a status of 500 when params are invalid' do
-    expect(response).to have_http_status(500)
+    it 'returns a status of 500' do
+      expect(response).to have_http_status(500)
+    end
   end
 end
