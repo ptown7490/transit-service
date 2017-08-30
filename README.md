@@ -25,6 +25,7 @@ This project is an API that provides transit data.
 * `$ rake db:create`
 * `$ rails g migration create_agencies`
 * `$ rails g migration create_routes`
+* `$ rails g migration create_route_directions`
 * `$ rake db:migrate`
 
 
