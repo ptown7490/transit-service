@@ -44,6 +44,10 @@ This project is an API that provides transit data.
 
 * Provide TriMet's WES schedule data.
 * Provide routing solutions between WES stations.
+* Create Gem for parsing TriMet's GTFS into API's database.
+* Provide routing between WES/MAX stations on generic weekday, using [Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm).
+  * Manually enter transfer connections, e.g. Pioneer Square, Rose Quarter (TC & Interstate), Gateway TC, Beaverton TC
+
 
 
 ## Testing
