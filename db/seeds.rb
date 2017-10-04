@@ -70,12 +70,12 @@ class Seed
     RouteDirection.create!(route_id:        route_id.to_i,
                            direction_id:    0,
                            direction_name:  'To Wilsonville',
-                           id:              0
+                           id:              1
                           )
     RouteDirection.create!(route_id:        route_id.to_i,
                            direction_id:    1,
                            direction_name:  'To Beaverton',
-                           id:              1
+                           id:              2
                           )
   end
 
@@ -126,10 +126,10 @@ class Seed
 
   def generate_trips
     16.times do
-      Trip.create!(route_direction_id:  0)
+      Trip.create!(route_direction_id:  1)
     end # make 16 trips to Wilsonville
     16.times do
-      Trip.create!(route_direction_id:  1)
+      Trip.create!(route_direction_id:  2)
     end # make 16 trips to Beaverton TC
   end
 
