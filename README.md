@@ -12,8 +12,10 @@ This project is an API that provides transit data.
 1. Set project root as working directory in CLI after cloning repo.
 2. Run `$ bundle install`
 3. Run `$ rake db:setup`
-4. Run `$ rails s`.
-5. Visit **`localhost:3000`**  in web browser.
+4. Run `$ postgres`.
+5. Run `$ rails s`.
+6. Visit **`localhost:3000`**  in web browser.
+7. Open Postman and enter requests at **`localhost:3000`**.
 
 
 ## Project creation
