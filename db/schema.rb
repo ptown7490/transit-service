@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170830152253) do
+ActiveRecord::Schema.define(version: 20171004065557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 20170830152253) do
     t.integer "route_direction_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "local_id"
   end
 
 end
