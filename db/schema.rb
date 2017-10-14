@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171004065557) do
+ActiveRecord::Schema.define(version: 20171010051619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20171004065557) do
     t.string "direction_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["route_id"], name: "index_route_directions_on_route_id"
   end
 
   create_table "routes", force: :cascade do |t|
@@ -36,6 +37,7 @@ ActiveRecord::Schema.define(version: 20171004065557) do
     t.string "short_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["agency_id"], name: "index_routes_on_agency_id"
   end
 
   create_table "stop_times", force: :cascade do |t|
@@ -63,6 +65,7 @@ ActiveRecord::Schema.define(version: 20171004065557) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "local_id"
+    t.index ["route_direction_id"], name: "index_trips_on_route_direction_id"
   end
 
 end

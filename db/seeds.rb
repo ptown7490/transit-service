@@ -268,6 +268,9 @@ class Seed
     Agency.create!(name: 'TriMet',
                    id:   1
                   )
+    Agency.create!(name: 'Portland Streetcar',
+                   id:   2
+                  )
   end
 
   def generate_routes(agency_id)
