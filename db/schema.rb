@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171010051619) do
+ActiveRecord::Schema.define(version: 20171014212137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(version: 20171010051619) do
     t.string "depart_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["stop_id"], name: "index_stop_times_on_stop_id"
+    t.index ["trip_id"], name: "index_stop_times_on_trip_id"
   end
 
   create_table "stops", force: :cascade do |t|
@@ -58,6 +60,8 @@ ActiveRecord::Schema.define(version: 20171010051619) do
     t.float "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["agency_id"], name: "index_stops_on_agency_id"
+    t.index ["local_id"], name: "index_stops_on_local_id"
   end
 
   create_table "trips", force: :cascade do |t|
@@ -65,6 +69,9 @@ ActiveRecord::Schema.define(version: 20171010051619) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "local_id"
+    t.integer "block_id"
+    t.index ["block_id"], name: "index_trips_on_block_id"
+    t.index ["local_id"], name: "index_trips_on_local_id"
     t.index ["route_direction_id"], name: "index_trips_on_route_direction_id"
   end
 
