@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171014212137) do
+ActiveRecord::Schema.define(version: 20171015204144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20171014212137) do
     t.string "short_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "route_class"
     t.index ["agency_id"], name: "index_routes_on_agency_id"
   end
 
@@ -44,10 +45,12 @@ ActiveRecord::Schema.define(version: 20171014212137) do
     t.integer "stop_id"
     t.integer "trip_id"
     t.integer "stop_sequence"
-    t.string "arrival_time"
-    t.string "depart_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "arrival_time"
+    t.datetime "depart_time"
+    t.index ["arrival_time"], name: "index_stop_times_on_arrival_time"
+    t.index ["depart_time"], name: "index_stop_times_on_depart_time"
     t.index ["stop_id"], name: "index_stop_times_on_stop_id"
     t.index ["trip_id"], name: "index_stop_times_on_trip_id"
   end
@@ -60,8 +63,12 @@ ActiveRecord::Schema.define(version: 20171014212137) do
     t.float "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "location_class"
+    t.integer "parent_station_id"
     t.index ["agency_id"], name: "index_stops_on_agency_id"
     t.index ["local_id"], name: "index_stops_on_local_id"
+    t.index ["location_class"], name: "index_stops_on_location_class"
+    t.index ["parent_station_id"], name: "index_stops_on_parent_station_id"
   end
 
   create_table "trips", force: :cascade do |t|
