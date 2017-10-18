@@ -3,14 +3,10 @@ class StopTimesController < ApplicationController
   def index
     if params[:trip_id]
       @trip = Trip.find(params[:trip_id])
-      @stop_times = @trip.stop_times
+      @stop_times = @trip.stop_times.order(:trip_id, :stop_sequence)
     else
-      @stop_times = StopTime.all.order(:id)
+      @stop_times = StopTime.all.order(:trip_id, :stop_sequence).limit(50)
     end
-    @output = @stop_times
-    # @output = @stop_times.map do |stop_time|
-    #   TimeManagement::convertTimeToSecondsElapsed(stop_time.arrival_time)
-    # end
-    json_response(@output)
+    json_response(@stop_times)
   end
 end
