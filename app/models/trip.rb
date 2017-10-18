@@ -6,4 +6,5 @@ class Trip < ActiveRecord::Base
   has_one :route, through: :route_direction
   has_one :agency, through: :route
 
+  validates :service_id, presence: true
 end

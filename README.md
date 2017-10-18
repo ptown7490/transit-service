@@ -34,6 +34,8 @@ This project is an API that provides transit data.
 * `$ rails g migration update_trips`
 * `$ rails g migration add_indices`
 * `$ rails g migration alter_trips`
+* `$ rails g migration alter_tables`
+* `$ rails g migration add_service_id`
 * `$ rake db:migrate`
 
 
