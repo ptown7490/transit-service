@@ -36,6 +36,8 @@ This project is an API that provides transit data.
 * `$ rails g migration alter_trips`
 * `$ rails g migration alter_tables`
 * `$ rails g migration add_service_id`
+* `$ rails g migration create_services`
+* `$ rails g migration add_service_id_index`
 * `$ rake db:migrate`
 
 
@@ -54,6 +56,7 @@ This project is an API that provides transit data.
 * Create Gem for parsing TriMet's GTFS into API's database.
 * Provide routing between WES/MAX stations on generic weekday, using [Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm).
   * Manually enter transfer connections, e.g. Pioneer Square, Rose Quarter (TC & Interstate), Gateway TC, Beaverton TC
+* Complete API documentation.
 
 
 

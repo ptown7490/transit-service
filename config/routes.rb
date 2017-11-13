@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
   resources :route_directions, only: [:index, :show] do
     resources :trips, only: [:index]
+    resources :stop_times, only: [:index]
   end
 
 end

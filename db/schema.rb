@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171018043400) do
+ActiveRecord::Schema.define(version: 20171112222456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,19 @@ ActiveRecord::Schema.define(version: 20171018043400) do
     t.datetime "updated_at", null: false
     t.integer "route_class"
     t.index ["agency_id"], name: "index_routes_on_agency_id"
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.integer "agency_id"
+    t.boolean "monday"
+    t.boolean "tuesday"
+    t.boolean "wednesday"
+    t.boolean "thursday"
+    t.boolean "friday"
+    t.boolean "saturday"
+    t.boolean "sunday"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "stop_times", force: :cascade do |t|
@@ -77,10 +90,11 @@ ActiveRecord::Schema.define(version: 20171018043400) do
     t.datetime "updated_at", null: false
     t.string "local_id"
     t.integer "block_id"
-    t.string "service_id"
+    t.integer "service_id"
     t.index ["block_id"], name: "index_trips_on_block_id"
     t.index ["local_id"], name: "index_trips_on_local_id"
     t.index ["route_direction_id"], name: "index_trips_on_route_direction_id"
+    t.index ["service_id"], name: "index_trips_on_service_id"
   end
 
 end
