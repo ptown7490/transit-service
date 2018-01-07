@@ -67,7 +67,7 @@ class Seed
 
     CSV.foreach(trips, headers: true) do |row|
       route = Route.find_by(local_id: row['route_id'])
-      if route.route_class == 4 || route.route_class == 5
+      if route.route_class == 4 || route.route_class == 5 # only include light and commuter rail routes
         rd = RouteDirection.find_by(route_id: route.id, direction_id: row['direction_id'].to_i)
         service_id =
         case row['service_id']
