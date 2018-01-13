@@ -47,6 +47,7 @@ This project is an API that provides transit data.
 * Ruby/Gems
 * Rails
 * PostgreSQL
+* JSON
 
 
 ## Specs
