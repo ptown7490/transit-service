@@ -24,4 +24,8 @@ Rails.application.routes.draw do
     resources :stop_times, only: [:index]
   end
 
+  defaults format: :json do
+    get 'route_directions/:id/schedule_table', to: 'route_directions#schedule'
+  end
+
 end
