@@ -12,6 +12,6 @@ end
 
 json.trips @trips do |trip|
   json.stop_times trip.stop_times.order(:stop_sequence) do |stop_time|
-    json.arrival_time stop_time.arrival_time
+    json.arrival_time stop_time.arrival_time.to_i
   end
 end
