@@ -10,8 +10,6 @@ json.stops_list @stops do |stop|
   json.local_id stop.local_id
 end
 
-json.trips @trips do |trip|
-  json.stop_times trip.stop_times.order(:stop_sequence) do |stop_time|
-    json.arrival_time stop_time.arrival_time.to_i
-  end
+json.trips @schedule_grid do |trip|
+  json.stop_times trip
 end
