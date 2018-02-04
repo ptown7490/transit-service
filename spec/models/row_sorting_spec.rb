@@ -29,32 +29,33 @@ describe "RowSorting.compare" do
   it "places row with larger first element after other row" do
     a = [1, 2, 3, 4, 5, 6, 7]
     b = [2, 3, 4, 5, 6, 7, 8]
-    expect(RowSorting.compare(a, b)).to eq(1)
-    expect(RowSorting.compare(b, a)).to eq(-1)
+
+    expect(RowSorting.compare(a, b)).to eq(-1)
+    expect(RowSorting.compare(b, a)).to eq(1)
   end
 
   it "places empty row before all other rows" do
     a = [1, 2, 3, 4, 5, 6, 7]
     b = [nil, nil, nil, nil, nil, nil, nil]
 
-    expect(RowSorting.compare(a, b)).to eq(-1)
-    expect(RowSorting.compare(b, a)).to eq(1)
+    expect(RowSorting.compare(a, b)).to eq(1)
+    expect(RowSorting.compare(b, a)).to eq(-1)
   end
 
   it "compares by the first pair of non-equal numbers" do
     a = [2, 3, 4, 5, 6, 7, 8]
     b = [2, 7, 8, 9, 10, 11, 12]
 
-    expect(RowSorting.compare(a, b)).to eq(1)
-    expect(RowSorting.compare(b, a)).to eq(-1)
+    expect(RowSorting.compare(a, b)).to eq(-1)
+    expect(RowSorting.compare(b, a)).to eq(1)
   end
 
   it "skips any pairs where either value is nil" do
     a = [nil, nil, nil, 6, 7, 8, 10]
     b = [2, 7, 8, 9, 10, 11, 12]
 
-    expect(RowSorting.compare(a, b)).to eq(1)
-    expect(RowSorting.compare(b, a)).to eq(-1)
+    expect(RowSorting.compare(a, b)).to eq(-1)
+    expect(RowSorting.compare(b, a)).to eq(1)
   end
 
   it "places rows correctly when they have no overlap" do
@@ -66,13 +67,13 @@ describe "RowSorting.compare" do
 
     e = [nil, 4, 5, nil, nil, nil, nil]
 
-    expect(RowSorting.compare(a, b)).to eq(1)
-    expect(RowSorting.compare(b, a)).to eq(-1)
+    expect(RowSorting.compare(a, b)).to eq(-1)
+    expect(RowSorting.compare(b, a)).to eq(1)
 
-    expect(RowSorting.compare(c, d)).to eq(1)
-    expect(RowSorting.compare(d, c)).to eq(-1)
+    expect(RowSorting.compare(c, d)).to eq(-1)
+    expect(RowSorting.compare(d, c)).to eq(1)
 
-    expect(RowSorting.compare(e, a)).to eq(1)
-    expect(RowSorting.compare(a, e)).to eq(-1)
+    expect(RowSorting.compare(e, a)).to eq(-1)
+    expect(RowSorting.compare(a, e)).to eq(1)
   end
 end

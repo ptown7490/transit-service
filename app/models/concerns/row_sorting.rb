@@ -1,4 +1,5 @@
-# This module provides
+# This module provides a compare method to allow rows to be sorted such that
+# every 'column' will be sorted ascending
 module RowSorting
 
   def self.compare(row_a, row_b)
@@ -17,27 +18,27 @@ module RowSorting
       if head_a[:index].nil? && head_b[:index].nil?
         result = 0
       elsif head_a[:index].nil?
-        result = 1
-      elsif head_b[:index].nil?
         result = -1
+      elsif head_b[:index].nil?
+        result = 1
       else
         if head_a[:index] > tail_b[:index] # row_a starts after row_b ends
           if head_a[:value] <= tail_b[:value]
-            result = 1
-          else
             result = -1
+          else
+            result = 1
           end
         elsif head_b[:index] > tail_a[:index] # row_b starts after row_a ends
           if head_b[:value] <= tail_a[:value]
-            result = -1
-          else
             result = 1
+          else
+            result = -1
           end
         elsif head_a[:index] == head_b[:index]
           if head_b[:value] > head_a[:value]
-            result = 1
-          elsif head_b[:value] < head_a[:value]
             result = -1
+          elsif head_b[:value] < head_a[:value]
+            result = 1
           elsif head_a[:value] == head_b[:value]
             result = self.compare(row_a[1, row_a.count-1], row_b[1, row_b.count-1])
           end
