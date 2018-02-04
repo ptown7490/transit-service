@@ -54,6 +54,7 @@ This project is an API that provides transit data.
 
 * Provide TriMet's WES and MAX schedule data.
 * Provide schedule data with trips ordered such that every stop's column in the schedule has ascending arrival time.
+* Provide merged schedule data for multiple route_directions, ordered properly.
 * Provide routing solutions between WES stations.
 * Create Gem for parsing TriMet's GTFS into API's database.
 * Provide routing between WES/MAX stations on generic weekday, using [Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm).

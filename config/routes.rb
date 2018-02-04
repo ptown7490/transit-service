@@ -28,4 +28,6 @@ Rails.application.routes.draw do
     get 'route_directions/:id/schedule_table', to: 'route_directions#schedule'
   end
 
+  get 'route_directions/:id/schedule_table_view', to: 'route_directions#schedule_view'
+
 end

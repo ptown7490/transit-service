@@ -1,0 +1,20 @@
+<h1><%= @route_direction.direction_name %></h1>
+
+<table>
+  <tr>
+    <% @table.header.each do |stop| %>
+      <th><%= stop.name %></th>
+    <% end %>
+  </tr>
+  <% @table.body.each do |row| %>
+    <tr>
+      <% row.each do |st| %>
+        <% if ! st.nil? %>
+          <td><%= "#{st.hour}:#{( st.min<10 ? "0#{st.min}" : st.min )}" %></td>
+        <% else %>
+          <td><%= "--" %></td>
+        <% end %>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
