@@ -4,12 +4,19 @@ json.service do
   json.name @service[:name]
 end
 
-json.stops_list @stops do |stop|
+json.stops_list @table.header do |stop|
   json.id stop.id
   json.name stop.name
   json.local_id stop.local_id
 end
 
-json.trips @schedule_grid do |trip|
-  json.stop_times trip
+json.trips @table.body do |trip|
+  stop_times = trip.map do |time|
+    if time.nil?
+      time
+    else
+      time.to_i
+    end
+  end
+  json.stop_times stop_times
 end

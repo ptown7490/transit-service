@@ -41,31 +41,20 @@ class RouteDirectionsController < ApplicationController
   def schedule
     @route_direction = RouteDirection.find(params[:id])
 
-    canonical_trip = Trip.find(@route_direction.canonical_trip_id)
-    stop_ids = canonical_trip.stop_times.order(:stop_sequence).map { |stop_time| stop_time.stop_id }
-    stop_count = stop_ids.count
-
-    @stops = stop_ids.map { |stop_id| Stop.find(stop_id) }
-
-    serv_id = 1
-    @service = { name: 'Weekday' }
-    @trips = @route_direction.trips.where(service_id: serv_id).sort_by(&:start_time)
-
-    schedule_grid = []
-    @trips.each do |trip|
-      row = Array.new(stop_count, nil)
-
-      trip.stop_times.order(:stop_sequence).each do |stop_time|
-        idx = stop_ids.index(stop_time.stop_id)
-        unless idx.nil?
-          row[idx] = stop_time.arrival_time.to_i
-        end
-      end
-
-      schedule_grid << row
+    if params[:service_id]
+      @service = Service.find(params[:service_id])
+      serv_id = @service.id
+    else
+      serv_id = 1
+      @service = { name: 'Weekday' }
     end
 
-    @schedule_grid = schedule_grid
+    canonical_trip = Trip.find(@route_direction.canonical_trip_id)
+    stop_ids = canonical_trip.stop_times.order(:stop_sequence).map { |stop_time| stop_time.stop_id }
+
+    trips = @route_direction.trips.where(service_id: serv_id)
+
+    @table = ScheduleTableFormatter.new(stop_ids, trips)
 
     render "schedule_table.json.jbuilder"
   end
