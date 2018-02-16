@@ -30,8 +30,8 @@ describe "RowSorting.compare" do
     a = [1, 2, 3, 4, 5, 6, 7]
     b = [2, 3, 4, 5, 6, 7, 8]
 
-    expect(RowSorting.compare(a, b)).to eq(-1)
-    expect(RowSorting.compare(b, a)).to eq(1)
+    expect(RowSorting.compare(a, b)).to eq(RowSorting::A_BEFORE_B)
+    expect(RowSorting.compare(b, a)).to eq(RowSorting::B_BEFORE_A)
   end
 
   it "places empty row before all other rows" do
@@ -58,7 +58,7 @@ describe "RowSorting.compare" do
     expect(RowSorting.compare(b, a)).to eq(1)
   end
 
-  it "places rows correctly when they have no overlap" do
+  it "returns nil when rows have no overlap" do
     a = [nil, nil, nil, 6, 7, 8, 10]
     b = [3, 8, 9, nil, nil, nil, nil]
 
@@ -67,13 +67,36 @@ describe "RowSorting.compare" do
 
     e = [nil, 4, 5, nil, nil, nil, nil]
 
-    expect(RowSorting.compare(a, b)).to eq(-1)
-    expect(RowSorting.compare(b, a)).to eq(1)
+    expect(RowSorting.compare(a, b)).to eq(nil)
+    expect(RowSorting.compare(b, a)).to eq(nil)
 
-    expect(RowSorting.compare(c, d)).to eq(-1)
-    expect(RowSorting.compare(d, c)).to eq(1)
+    expect(RowSorting.compare(c, d)).to eq(nil)
+    expect(RowSorting.compare(d, c)).to eq(nil)
 
-    expect(RowSorting.compare(e, a)).to eq(-1)
-    expect(RowSorting.compare(a, e)).to eq(1)
+    expect(RowSorting.compare(e, a)).to eq(nil)
+    expect(RowSorting.compare(a, e)).to eq(nil)
+  end
+end
+
+describe "RowSorting.sort" do
+  it "sorts tables without nils" do
+    a = [1, 2, 3, 4, 5, 6, 7]
+    c = [2, 3, 4, 5, 6, 7, 8]
+    d = [2, 7, 8, 9, 10, 11, 12]
+
+    sorted = [
+      a, c, d
+    ]
+    test_table = [
+      d,
+      a,
+      c,
+    ].reverse
+
+    result = RowSorting.sort(test_table) do |item|
+      item
+    end
+
+    expect(result).to eq(sorted)
   end
 end
