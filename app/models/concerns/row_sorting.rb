@@ -65,11 +65,55 @@ module RowSorting
     end
 
     ## go through discards
-    while discards.count > 0
-      element = discards[0]
-      discards.delete_at(0)
+    pool = discards
+    discards = []
+    while pool.count > 0
+      r_index = nil
+      l_index = nil
 
-      ## TODO: implement
+      # take out next element from pool
+      element = pool[0]
+      pool.delete_at(0)
+
+      # find place in result that new element must precede
+      for i in 0..(sorted.count - 1)
+        comp = self.compare((yield element), (yield sorted[i]))
+        if comp == A_BEFORE_B
+          r_index = i
+          break
+        end
+      end
+
+      # find place in result that new element must succeed
+      i = sorted.count - 1
+      until i < 0 do
+        comp = self.compare((yield element), (yield sorted[i]))
+        if comp == B_BEFORE_A
+          l_index = i
+          break
+        end
+        i -= 1
+      end
+
+      if ! r_index.nil? && ! l_index.nil?
+        if r_index == l_index + 1
+          sorted.insert(r_index, element) # push new element in front of index
+        else
+          discards << element
+        end
+      elsif r_index.nil?
+        if self.compare((yield element), (yield sorted.last)) == B_BEFORE_A
+          sorted << element
+        else
+          discards << element
+        end
+      elsif l_index.nil?
+        if self.compare((yield element), (yield sorted[0])) == A_BEFORE_B
+          sorted.insert(0, element)
+        else
+          discards << element
+        end
+      end
     end
 
     sorted
@@ -88,11 +132,11 @@ module RowSorting
       tail_b = self.end(row_b)
 
 
-      if head_a[:index].nil? && head_b[:index].nil?
+      if head_a[:index].nil? && head_b[:index].nil? # both are all nil
         result = 0
-      elsif head_a[:index].nil?
+      elsif head_a[:index].nil? # row_a is all nil
         result = A_BEFORE_B
-      elsif head_b[:index].nil?
+      elsif head_b[:index].nil? # row_b is all nil
         result = B_BEFORE_A
       else
         if head_a[:index] > tail_b[:index] # row_a starts after row_b ends

@@ -38,24 +38,24 @@ describe "RowSorting.compare" do
     a = [1, 2, 3, 4, 5, 6, 7]
     b = [nil, nil, nil, nil, nil, nil, nil]
 
-    expect(RowSorting.compare(a, b)).to eq(1)
-    expect(RowSorting.compare(b, a)).to eq(-1)
+    expect(RowSorting.compare(a, b)).to eq(RowSorting::B_BEFORE_A)
+    expect(RowSorting.compare(b, a)).to eq(RowSorting::A_BEFORE_B)
   end
 
   it "compares by the first pair of non-equal numbers" do
     a = [2, 3, 4, 5, 6, 7, 8]
     b = [2, 7, 8, 9, 10, 11, 12]
 
-    expect(RowSorting.compare(a, b)).to eq(-1)
-    expect(RowSorting.compare(b, a)).to eq(1)
+    expect(RowSorting.compare(a, b)).to eq(RowSorting::A_BEFORE_B)
+    expect(RowSorting.compare(b, a)).to eq(RowSorting::B_BEFORE_A)
   end
 
   it "skips any pairs where either value is nil" do
     a = [nil, nil, nil, 6, 7, 8, 10]
     b = [2, 7, 8, 9, 10, 11, 12]
 
-    expect(RowSorting.compare(a, b)).to eq(-1)
-    expect(RowSorting.compare(b, a)).to eq(1)
+    expect(RowSorting.compare(a, b)).to eq(RowSorting::A_BEFORE_B)
+    expect(RowSorting.compare(b, a)).to eq(RowSorting::B_BEFORE_A)
   end
 
   it "returns nil when rows have no overlap" do
@@ -81,17 +81,46 @@ end
 describe "RowSorting.sort" do
   it "sorts tables without nils" do
     a = [1, 2, 3, 4, 5, 6, 7]
-    c = [2, 3, 4, 5, 6, 7, 8]
-    d = [2, 7, 8, 9, 10, 11, 12]
+    b = [2, 3, 4, 5, 6, 7, 8]
+    c = [2, 7, 8, 9, 10, 11, 12]
 
     sorted = [
-      a, c, d
+      a, b, c
+    ]
+    test_table = [
+      c,
+      a,
+      b,
+    ].reverse
+
+    result = RowSorting.sort(test_table) do |item|
+      item
+    end
+
+    expect(result).to eq(sorted)
+  end
+
+  it "sorts rows that do not overlap for every comparison" do
+    a = [1, 2, 3, 4, 5, 6, 7]
+    b = [2, 3, 4, 5, 6, 7, 8]
+    c = [nil, 4, 5, nil, nil, nil, nil]
+    d = [2, 7, 8, 9, 10, 11, 12]
+    e = [3, 8, 9, nil, nil, nil, nil]
+    f = [4, 9, 10, 11, nil, nil, nil]
+    g = [nil, nil, nil, 12, 13, 14, 15]
+
+    sorted = [
+      a, b, c, d, e, f, g
     ]
     test_table = [
       d,
-      a,
       c,
-    ].reverse
+      f,
+      b,
+      a,
+      g,
+      e,
+    ]
 
     result = RowSorting.sort(test_table) do |item|
       item
