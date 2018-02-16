@@ -35,6 +35,8 @@ class RouteDirectionsController < ApplicationController
 
     @table = ScheduleTableFormatter.new(stop_ids, trips)
 
+    @stop_indices = (0...canonical_trip.stop_times.count).to_a
+
     render "schedule_table.html.erb"
   end
 

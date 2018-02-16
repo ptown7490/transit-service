@@ -1,18 +1,31 @@
-<h1><%= @route_direction.direction_name %></h1>
+<div class='jumbotron>'>
+  <h1><%= @route_direction.direction_name %></h1>
+  <h2><%= @table.body.count %> trips</h2>
+</div>
 
-<table>
+<table class='table'>
   <tr>
-    <% @table.header.each do |stop| %>
-      <th><%= stop.name %></th>
+    <th>
+      trip_id
+    </th>
+    <% @table.header.each_with_index do |stop, idx| %>
+      <% if @stop_indices.include?(idx) %>
+        <th><%= stop.name %></th>
+      <% end %>
     <% end %>
   </tr>
   <% @table.body.each do |row| %>
     <tr>
-      <% row.each do |st| %>
-        <% if ! st.nil? %>
-          <td><%= "#{st.hour}:#{( st.min<10 ? "0#{st.min}" : st.min )}" %></td>
-        <% else %>
-          <td><%= "--" %></td>
+      <td>
+        <%= row[:trip].id %>
+      </td>
+      <% row[:row].each_with_index do |st, idx| %>
+        <% if @stop_indices.include?(idx) %>
+          <% if ! st.nil? %>
+            <td><%= "#{st.hour}:#{( st.min<10 ? "0#{st.min}" : st.min )}" %></td>
+          <% else %>
+            <td><%= "--" %></td>
+          <% end %>
         <% end %>
       <% end %>
     </tr>

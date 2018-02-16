@@ -76,6 +76,25 @@ describe "RowSorting.compare" do
     expect(RowSorting.compare(e, a)).to eq(nil)
     expect(RowSorting.compare(a, e)).to eq(nil)
   end
+
+  it "places rows correctly when they have no overlap" do
+    a = [nil, nil, nil, 6, 7, 8, 10]
+    b = [3, 8, 9, nil, nil, nil, nil]
+
+    c = [nil, nil, nil, nil, 11, 12, 13]
+    d = [4, 9, 10, 11, nil, nil, nil]
+
+    e = [nil, 4, 5, nil, nil, nil, nil]
+
+    expect(RowSorting.compare(a, b, false)).to eq(RowSorting::A_BEFORE_B)
+    expect(RowSorting.compare(b, a, false)).to eq(RowSorting::B_BEFORE_A)
+
+    expect(RowSorting.compare(c, d, false)).to eq(RowSorting::A_BEFORE_B)
+    expect(RowSorting.compare(d, c, false)).to eq(RowSorting::B_BEFORE_A)
+
+    expect(RowSorting.compare(e, a, false)).to eq(RowSorting::A_BEFORE_B)
+    expect(RowSorting.compare(a, e, false)).to eq(RowSorting::B_BEFORE_A)
+  end
 end
 
 describe "RowSorting.sort" do
@@ -120,6 +139,39 @@ describe "RowSorting.sort" do
       a,
       g,
       e,
+    ]
+
+    result = RowSorting.sort(test_table) do |item|
+      item
+    end
+
+    expect(result).to eq(sorted)
+  end
+
+  it "" do
+    a = [nil, nil, nil, nil, nil, nil, nil]
+    b = [1, 2, 3, 4, 5, 6, 7]
+    c = [2, 3, 4, 5, 6, 7, 8]
+    d = [nil, 4, 5, nil, nil, nil, nil]
+    e = [nil, nil, nil, 6, 7, 8, 10]
+    f = [2, 7, 8, 9, 10, 11, 12]
+    g = [3, 8, 9, nil, nil, nil, nil]
+    h = [nil, nil, nil, nil, 11, 12, 13]
+    i = [4, 9, 10, 11, nil, nil, nil]
+
+    sorted = [
+      a, b, c, d, e, f, g, h, i,
+    ]
+    test_table = [
+      c,
+      f,
+      g,
+      a,
+      h,
+      i,
+      e,
+      b,
+      d,
     ]
 
     result = RowSorting.sort(test_table) do |item|

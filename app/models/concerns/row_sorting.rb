@@ -116,10 +116,62 @@ module RowSorting
       end
     end
 
+    ## go through discards again
+    pool = discards
+    discards = []
+    while pool.count > 0
+      r_index = nil
+      l_index = nil
+
+      # take out next element from pool
+      element = pool[0]
+      pool.delete_at(0)
+
+      # find place in result that new element must precede
+      for i in 0..(sorted.count - 1)
+        comp = self.compare((yield element), (yield sorted[i]), false)
+        if comp == A_BEFORE_B
+          r_index = i
+          break
+        end
+      end
+
+      # find place in result that new element must succeed
+      i = sorted.count - 1
+      until i < 0 do
+        comp = self.compare((yield element), (yield sorted[i]), false)
+        if comp == B_BEFORE_A
+          l_index = i
+          break
+        end
+        i -= 1
+      end
+
+      if ! r_index.nil? && ! l_index.nil?
+        if r_index <= l_index + 1
+          sorted.insert(r_index, element) # push new element in front of index
+        else
+          discards << element
+        end
+      elsif r_index.nil?
+        if self.compare((yield element), (yield sorted.last), false) == B_BEFORE_A
+          sorted << element
+        else
+          discards << element
+        end
+      elsif l_index.nil?
+        if self.compare((yield element), (yield sorted[0]), false) == A_BEFORE_B
+          sorted.insert(0, element)
+        else
+          discards << element
+        end
+      end
+    end
+
     sorted
   end
 
-  def self.compare(row_a, row_b)
+  def self.compare(row_a, row_b, strict = true)
     result = nil
 
     if row_a == row_b
@@ -140,9 +192,25 @@ module RowSorting
         result = B_BEFORE_A
       else
         if head_a[:index] > tail_b[:index] # row_a starts after row_b ends
-          result = nil
+          if strict
+            result = nil
+          else
+            if head_a[:value] <= tail_b[:value]
+              result = A_BEFORE_B
+            else
+              result = B_BEFORE_A
+            end
+          end
         elsif head_b[:index] > tail_a[:index] # row_b starts after row_a ends
-          result = nil
+          if strict
+            result = nil
+          else
+            if head_b[:value] <= tail_a[:value]
+              result = B_BEFORE_A
+            else
+              result = A_BEFORE_B
+            end
+          end
         elsif head_a[:index] == head_b[:index]
           if head_b[:value] > head_a[:value]
             result = A_BEFORE_B

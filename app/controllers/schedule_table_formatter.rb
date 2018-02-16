@@ -23,12 +23,12 @@ class ScheduleTableFormatter
         end
       end
 
-      grid << row
+      grid << { trip: trip, row: row }
     end
 
-    grid.sort do |a, b|
-      RowSorting.compare(a, b)
+    RowSorting.sort(grid) do |element|
+      element[:row]
     end
   end
-
+  
 end
