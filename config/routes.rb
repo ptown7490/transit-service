@@ -6,12 +6,9 @@ Rails.application.routes.draw do
   end
   resources :stops, only: [:index, :show]
 
-
   resources :routes, only: [:index, :show] do
     resources :trips, only: [:index]
-    resources :route_directions, only: [:index] do
-      resources :trips, only: [:index]
-    end
+    resources :route_directions, only: [:index]
   end
   resources :trips, only: [:index, :show] do
     resources :stop_times, only: [:index]
@@ -24,10 +21,15 @@ Rails.application.routes.draw do
     resources :stop_times, only: [:index]
   end
 
-  defaults format: :json do
-    get 'route_directions/:id/schedule_table', to: 'route_directions#schedule'
+  constraints ApiConstraint.new(version: 1) do
+    scope module: :v1 do
+      defaults format: :json do
+        get 'route_directions/:id/schedule', to: 'route_directions#schedule'
+      end
+
+      get 'route_directions/:id/schedule_table_view', to: 'route_droute_directions#schedule_view'
+    end
   end
 
-  get 'route_directions/:id/schedule_table_view', to: 'route_directions#schedule_view'
 
 end

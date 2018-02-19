@@ -11,7 +11,7 @@ json.stops_list @table.header do |stop|
 end
 
 json.trips @table.body do |trip|
-  stop_times = trip.map do |time|
+  stop_times = trip[:row].map do |time|
     if time.nil?
       time
     else

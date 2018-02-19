@@ -1,0 +1,22 @@
+<table class='table'>
+  <tr>
+    <th>
+      trip_id
+    </th>
+    <% @compare_trips.each do |trip| %>
+      <th><%= trip.id %></th>
+    <% end %>
+  </tr>
+  <% @table.each do |row| %>
+    <tr>
+      <td>
+        <%= row[:trip].id %>
+      </td>
+      <% row[:row].each do |compare_value| %>
+        <td>
+          <%= compare_value %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
