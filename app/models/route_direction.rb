@@ -1,5 +1,6 @@
 class RouteDirection < ActiveRecord::Base
   belongs_to :route
+  has_one :agency, through: :route
   has_many :trips
   has_many :services,  -> { distinct }, through: :trips
 
