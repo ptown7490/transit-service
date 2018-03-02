@@ -29,13 +29,12 @@ Rails.application.routes.draw do
     resources :stop_times, only: [:index]
   end
 
+  get 'route_directions/:id/schedule_table_view', to: 'route_directions#schedule_view'
+
   api_version(1) do
     defaults format: :json do
       get 'route_directions/:id/schedule', to: 'route_directions#schedule'
     end
-
-    get 'route_directions/:id/schedule_table_view', to: 'route_droute_directions#schedule_view'
   end
-
 
 end
