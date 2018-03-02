@@ -7,6 +7,15 @@
 ## Description
 This project is an API that provides transit data.
 
+## API Documentation
+### Version 1
+(Note: include `"version=1"` in Accept header for requests)
+
+#### Schedule table
+`route_directions/:id/schedule?&service_id`
+`id`: id of route_direction requested
+Get aligned rows of stop_times under a service
+
 
 ## Setup
 1. Set project root as working directory in CLI after cloning repo.
