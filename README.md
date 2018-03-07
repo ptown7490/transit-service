@@ -14,7 +14,26 @@ This project is an API that provides transit data.
 #### Schedule table
 `route_directions/:id/schedule?&service_id`
 `id`: id of route_direction requested
+
 Get aligned rows of stop_times under a service
+
+```
+response =  "{",
+            "id:", integer,
+            ", route_id:", integer,
+            ", direction_id:", ("0" | "1"),
+            ", direction_name:", string,
+            ", service:", service,
+            ", stops_list:", stops_list,
+            ", trips:", trips,
+            "}" ;
+service = "{ name:", string, "}" ;
+stops_list = "[", { stop, "," }, stop, "]" ;
+stop = "{ id:", integer, ", name:", string, ", local_id:", string, "}" ;
+trips = "[ ", { trip, "," }, trip, "]" ;
+trip = "{ stop_times: [", { ( integer | null ), "," }, ( integer | null ), "] }" ;
+```
+(EBNF)
 
 
 ## Setup
