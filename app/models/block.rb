@@ -5,6 +5,8 @@ class Block
     @agency_id = agency_id
   end
 
+  attr_reader :block_id, :agency_id
+
   def self.all(agency_id)
     agency = Agency.find(agency_id)
     blocks = agency.trips.select(:block_id).distinct('block_id').order(:block_id)
@@ -14,8 +16,8 @@ class Block
     end
   end
 
-  def self.find(block_id)
-    Block.new(block_id, 1)
+  def self.find(block_id, agency_id = 1)
+    Block.new(block_id, agency_id)
   end
 
   def agency
@@ -24,9 +26,9 @@ class Block
 
   def trips(service_id = nil)
     if service_id.nil?
-      agency.trips.where(block_id: @block_id)
+      agency.trips.where(block_id: @block_id).sort_by(&:start_time)
     else
-      agency.trips.where(block_id: @block_id, service_id: service_id)
+      agency.trips.where(block_id: @block_id, service_id: service_id).sort_by(&:start_time)
     end
   end
 

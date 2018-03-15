@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :agencies do
     resources :routes, only: [:index]
     resources :stops, only: [:index]
+    resources :blocks, only: [:index, :show]
   end
   resources :stops, only: [:index, :show]
 

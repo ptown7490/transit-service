@@ -1,0 +1,37 @@
+<h1>
+  Block <%= @block.block_id %>
+</h1>
+
+<table class='table'>
+  <tr>
+    <th>
+      trip_id
+    </th>
+    <th>
+      Route
+    </th>
+    <th>
+      start stop
+    </th>
+    <th>
+      start time
+    </th>
+    <th>
+      end stop
+    </th>
+    <th>
+      end time
+    </th>
+  </tr>
+
+  <% @trips.each do |trip| %>
+    <tr>
+      <th><%= trip.id %></th>
+      <td><%= trip.route.name %></td>
+      <td><%= trip.start_stop.name %></td>
+      <td><%= trip.start_time %></td>
+      <td><%= trip.end_stop.name %></td>
+      <td><%= trip.end_time %></td>
+    </tr>
+  <% end %>
+</table>
