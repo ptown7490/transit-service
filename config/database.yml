@@ -80,7 +80,7 @@ test:
 #
 production:
   <<: *default
-  url: <%= ENV['HEROKU_POSTGRESQL_CRIMSON_URL'] %>
+  url: <%= ENV['DATABASE_URL'] %>
   database: transit_service_production
   username: transit_service
   password: <%= ENV['TRANSIT_SERVICE_DATABASE_PASSWORD'] %>
