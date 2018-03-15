@@ -32,4 +32,8 @@ class Block
     end
   end
 
+  def services
+    agency.trips.where(block_id: @block_id).select(:service_id).distinct('service_id').order(:service_id)
+  end
+
 end
