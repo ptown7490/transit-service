@@ -1,0 +1,27 @@
+<h1>Stops</h1>
+
+<table class="table">
+  <tr>
+    <th>stop.id</th>
+    <th>local_id</th>
+    <th>agencey_id</th>
+    <th>name</th>
+    <th>location_class</th>
+    <th>parent_station_id</th>
+  </tr>
+
+  <% @stops.each do |stop| %>
+    <tr>
+      <td><%= stop.id %></td>
+      <td><%= stop.local_id %></td>
+      <td><%= stop.agency_id %></td>
+      <td><%= link_to stop.name, stop_path(stop) %></td>
+      <td><%= stop.location_class %></td>
+      <td>
+        <% unless stop.parent_station_id.nil? %>
+          <%= link_to stop.parent_station_id, stop_path(stop.parent_station) %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

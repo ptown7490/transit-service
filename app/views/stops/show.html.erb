@@ -1,0 +1,25 @@
+<h1>
+  Stop <%= @stop.id %>
+</h1>
+<p>
+  "<%= @stop.name %>"
+</p>
+
+<% unless @stop.children.empty? %>
+  <h4>Children</h4>
+  <table class="table">
+    <tr>
+      <th>stop_id</th>
+      <th>local_id</th>
+      <th>name</th>
+    </tr>
+
+    <% @stop.children.each do |stop| %>
+      <tr>
+        <td><%= stop.id %></td>
+        <td><%= stop.local_id %></td>
+        <td><%= link_to stop.name, stop_path(stop) %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
