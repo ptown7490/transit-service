@@ -1,9 +1,11 @@
 require 'rails_helper'
 
 describe "get all agencies route", type: :request do
-  let!(:agencies) { Agency.create(name: 'TriMet') }
+  let!(:agencies) { create(:agency) }
 
-  before { get '/agencies' }
+  before do
+    get '/agencies'
+  end
 
   it 'returns all agencies' do
     expect(jsonParseBody(response).size).to eq 1

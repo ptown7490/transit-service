@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe "get all routes route", type: :request do
-  let!(:agencies) { Agency.create(name: 'TriMet', id: 1) }
-  let!(:routes) { Route.create(name: 'WES Commuter Rail', agency_id: 1, local_id: 203) }
+  let!(:agencies) { create(:agency, id: 1) }
+  let!(:routes) { create(:route, name: 'WES Commuter Rail', agency_id: 1, local_id: '203') }
 
   before do
     get '/routes'
