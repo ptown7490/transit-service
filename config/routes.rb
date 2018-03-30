@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     end
   end
 
+  root to: 'home#index'
+
   resources :agencies do
     resources :routes, only: [:index]
     resources :stops, only: [:index]
