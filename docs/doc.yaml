@@ -1,0 +1,125 @@
+openapi: "3.0.1"
+
+info:
+  title: "TransitService"
+  description: "This API provides data useful for presenting information about transit systems such as schedules, route paths, and travel itineraries. Please note that to use Version 1, you must include \"version=1\" in your request's Accept header."
+  version: "1.0"
+
+servers:
+  - url: https://pmc-transit-service.herokuapp.com/
+    description: Production server
+
+paths:
+  /agencies/{agency_id}:
+    get:
+      tags:
+      - Agency
+      summary: "Find agency by ID"
+      description: "Returns a single agency"
+      parameters:
+      - name: agency_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 1
+
+      responses:
+        200:
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Agency"
+        404:
+          description: "Agency not found"
+
+  /route_directions/{route_direction_id}/schedule:
+    get:
+      tags:
+      - Route Direction
+      summary: "Get a schedule"
+      description: "Returns data for showing a schedule of arrival times"
+      parameters:
+      - name: route_direction_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: service_id
+        in: query
+        required: true
+        schema:
+          type: integer
+
+      responses:
+        200:
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScheduleTable"
+
+components:
+  schemas:
+    Agency:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    ScheduleTable:
+      type: object
+      properties:
+        id:
+          type: integer
+        route_id:
+          type: integer
+        direction_id:
+          type: integer
+        service:
+          $ref: "#/components/schemas/ScheduleTable_Service"
+        stops_list:
+          type: array
+          items:
+            $ref: "#/components/schemas/ScheduleTable_Stop"
+        trips:
+          type: array
+          items:
+            $ref: "#/components/schemas/ScheduleTable_Trip"
+    ScheduleTable_Service:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Weekdays"
+    ScheduleTable_Stop:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        local_id:
+          type: string
+    ScheduleTable_Trip:
+      type: object
+      properties:
+        stop_times:
+          type: array
+          items:
+            $ref: "#/components/schemas/ScheduleTable_StopTime"
+    ScheduleTable_StopTime:
+      type: integer
+
+
+
+tags:
+  - name: Agency
+    description: "A public transportation provider"
+  - name: Route Direction
+    description: "A travel route in a specific direction"
