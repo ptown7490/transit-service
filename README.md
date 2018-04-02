@@ -66,6 +66,7 @@ trip = "{ stop_times: [", { ( integer | null ), "," }, ( integer | null ), "] }"
 * `$ rails g migration add_service_id`
 * `$ rails g migration create_services`
 * `$ rails g migration add_service_id_index`
+* `$ rails g migration create_locations`
 * `$ rake db:migrate`
 
 
