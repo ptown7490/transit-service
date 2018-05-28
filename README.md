@@ -40,10 +40,11 @@ trip = "{ stop_times: [", { ( integer | null ), "," }, ( integer | null ), "] }"
 1. Set project root as working directory in CLI after cloning repo.
 2. Run `$ bundle install`
 3. Run `$ rake db:setup`
-4. Run `$ postgres`.
-5. Run `$ rails s`.
-6. Visit **`localhost:3000`**  in web browser.
-7. Open Postman and enter requests at **`localhost:3000`**.
+4. Run `$ rake trimet:all`
+5. Run `$ postgres`.
+6. Run `$ rails s`.
+7. Visit **`localhost:3000`**  in web browser.
+8. Open Postman and enter requests at **`localhost:3000`**.
 
 
 ## Project creation
