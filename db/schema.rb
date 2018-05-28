@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180402214809) do
+ActiveRecord::Schema.define(version: 20180402220354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20180402214809) do
     t.datetime "updated_at", null: false
     t.integer "location_class"
     t.integer "parent_station_id"
+    t.integer "location_id"
     t.index ["agency_id"], name: "index_stops_on_agency_id"
     t.index ["local_id"], name: "index_stops_on_local_id"
     t.index ["location_class"], name: "index_stops_on_location_class"

@@ -1,7 +1,9 @@
 require 'csv'
+require './data/trimet_stop_pairs.rb'
 
 class Seed
   DIRPATHS = {trimet: './data/trimet_gtfs/'}
+  # STOP_PAIRS = {trimet: './data/trimet_stop_pairs.rb'}
 
   def self.load_trimet_data_rail_only
     trimet_gtfs = DIRPATHS[:trimet]
@@ -111,6 +113,28 @@ class Seed
 
   end
 
+  def self.load_trimet_rail_locations
+    groups = [
+      MAX_BLUE_LINE,
+      MAX_RED_LINE,
+      MAX_GREEN_LINE,
+      MAX_YELLOW_LINE,
+      MAX_ORANGE_LINE,
+      WES
+    ]
+
+    groups.each do |group|
+      group.each do |stop_pair|
+        location = Location.create
+        stop_pair.uniq.each do |local_id|
+          stop = Stop.find_by(local_id: local_id.to_s)
+          stop.location_id = location.id
+        end
+      end
+    end
+  end
+
 end
 
 Seed.load_trimet_data_rail_only
+Seed.load_trimet_rail_locations
