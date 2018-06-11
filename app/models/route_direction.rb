@@ -3,6 +3,7 @@ class RouteDirection < ActiveRecord::Base
   has_one :agency, through: :route
   has_many :trips
   has_many :services,  -> { distinct }, through: :trips
+  has_many :blocks, -> { distinct }, through: :trips
 
   validates :direction_id, presence: true
 

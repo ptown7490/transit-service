@@ -7,4 +7,5 @@ describe Trip do
   it { should have_many :stops }
   it { should have_one :route }
   it { should have_one :agency }
+  it { should belong_to :block }
 end

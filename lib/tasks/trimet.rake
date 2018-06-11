@@ -89,7 +89,8 @@ namespace :trimet do
         end
 
         if ! service_id.nil?
-          rd.trips.create!(local_id: row['trip_id'], block_id: row['block_id'].to_i, service_id: service_id)
+          block = Block.create_with(agency_id: trimet.id).find_or_create_by(local_id: row['block_id'])
+          rd.trips.create!(local_id: row['trip_id'], block_id: block.id, service_id: service_id)
         else
           trip_blacklist << row['trip_id']
         end

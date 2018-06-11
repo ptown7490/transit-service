@@ -1,30 +1,31 @@
 class BlocksController < ApplicationController
 
   def index
-    @agency_id = params[:agency_id]
-    @blocks = Block.all(@agency_id)
+    agency_id = params[:agency_id]
+    @agency = Agency.find(agency_id)
+    @blocks = @agency.blocks
 
     json_response(@blocks)
   end
 
   def show
-    @agency_id = params[:agency_id]
-    @block = Block.find(params[:id], @agency_id)
+    agency_id = params[:agency_id]
+    @agency = Agency.find(agency_id)
+    @block = Block.find(params[:id])
     if params[:service_id]
       @services = [
         {
           service_id: params[:service_id],
-          trips: @block.trips(params[:service_id])
+          trips: @block.trips.where(service_id: params[:service_id])
         }
       ]
-      @trips = @block.trips(params[:service_id])
+      @trips = @block.trips.where(service_id: params[:service_id]).sort_by(&:start_time)
     else
-      @services = []
-      @block.services.each do |service|
-        service_id = service[:service_id]
-        @services << {service_id: service[:service_id], trips: @block.trips(service_id)}
+      @services = @block.services.map do |service|
+        service_id = service.id
+        {service_id: service_id, trips: @block.trips.where(service_id: service_id).sort_by(&:start_time)}
       end
-      @trips = @block.trips
+      @trips = @block.trips.sort_by(&:start_time)
     end
 
     respond_to do |format|

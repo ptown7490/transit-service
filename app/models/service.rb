@@ -4,5 +4,6 @@ class Service < ActiveRecord::Base
   has_many :route_directions,  -> { distinct }, through: :trips
   has_many :routes,  -> { distinct }, through: :route_directions
   has_many :stop_times, through: :trips
+  has_many :blocks, -> { distinct }, through: :trips
 
 end

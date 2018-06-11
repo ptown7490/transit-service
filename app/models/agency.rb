@@ -4,6 +4,7 @@ class Agency < ActiveRecord::Base
 
   has_many :route_directions, through: :routes
   has_many :trips, through: :route_directions
+  has_many :blocks
 
   validates :name, presence: true
 end

@@ -6,4 +6,5 @@ describe Service do
   it { should have_many :route_directions }
   it { should have_many :routes }
   it { should have_many :stop_times }
+  it { should have_many :blocks }
 end

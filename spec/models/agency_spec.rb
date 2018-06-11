@@ -7,4 +7,5 @@ describe Agency do
   it { should have_many :stops }
   it { should have_many :route_directions }
   it { should have_many :trips }
+  it { should have_many :blocks }
 end

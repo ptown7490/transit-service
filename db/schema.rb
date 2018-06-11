@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180402220354) do
+ActiveRecord::Schema.define(version: 20180601185822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,13 @@ ActiveRecord::Schema.define(version: 20180402220354) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "blocks", force: :cascade do |t|
+    t.integer "agency_id"
+    t.string "local_id"
+    t.index ["agency_id"], name: "index_blocks_on_agency_id"
+    t.index ["local_id"], name: "index_blocks_on_local_id"
   end
 
   create_table "locations", force: :cascade do |t|

@@ -1,6 +1,7 @@
 class Trip < ActiveRecord::Base
   belongs_to :route_direction
   belongs_to :service
+  belongs_to :block
   has_many :stop_times
 
   has_many :stops, through: :stop_times
