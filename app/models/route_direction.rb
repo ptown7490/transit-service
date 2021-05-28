@@ -43,9 +43,32 @@ class RouteDirection < ActiveRecord::Base
     end
   end
 
-  def service_ids
-    Trip.where(route_direction_id: self.id).select(:service_id).distinct('service_id').order(:service_id).map do |record|
-      record.service_id
-    end
+  def blocks_for_service(service_id)
+    block_ids = Block.joins(:trips).where("route_direction_id = #{id} AND service_id = #{service_id}").pluck("blocks.id")
+    puts block_ids
+    service_blocks = Block.where(id: block_ids)
   end
+
+  def c_trip
+    Trip.find(canonical_trip_id)
+  end
+
+  def stops
+    stops_ids = Trip.find(canonical_trip_id).stops.select(:id).pluck(:id)
+    Stop.where(id: stops_ids)
+  end
+
+  def locations
+    location_ids = stops.select(:location_id).distinct('location_id').pluck(:location_id)
+    Location.where(id: location_ids)
+  end
+
+  def ordered_location_ids
+    StopTime.joins("INNER JOIN stops ON stop_times.stop_id = stops.id INNER JOIN locations ON stops.location_id = locations.id").where("stop_times.trip_id = #{canonical_trip_id}").select("locations.id").order("stop_times.stop_sequence").pluck("locations.id")
+  end
+
+  def service_ids
+    services.order(:id).pluck(:id)
+  end
+
 end

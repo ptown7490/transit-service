@@ -1,0 +1,32 @@
+<h1>
+  Trip <%= @trip.id %>
+</h1>
+<h2>
+  (local_id: <%= @trip.local_id %>)
+</h2>
+<h3>
+  service_id: <%= @trip.service_id %>
+</h3>
+<h3>
+  block_id: <%= link_to @trip.block_id, agency_block_path(@trip.agency, @trip.block) %>
+</h3>
+
+<table class="table">
+  <tr>
+    <th>Sequence</th>
+    <th>stop_id</th>
+    <th>local_id</th>
+    <th>name</th>
+    <th>arrival_time</th>
+  </tr>
+
+  <% @stop_times.each do |stop_time| %>
+    <tr>
+      <td><%= stop_time.stop_sequence %></td>
+      <td><%= stop_time.stop_id %></td>
+      <td><%= stop_time.stop.local_id %></td>
+      <td><%= stop_time.stop.name %></td>
+      <td><%= stop_time.arrival_time %></td>
+    </tr>
+  <% end %>
+</table>

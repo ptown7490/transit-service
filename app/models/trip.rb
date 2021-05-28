@@ -8,6 +8,13 @@ class Trip < ActiveRecord::Base
   has_one :route, through: :route_direction
   has_one :agency, through: :route
 
+  def ordered_stop_times
+    stop_times.order(:stop_sequence)
+  end
+
+  def ordered_stops
+    stops.order("stop_times.stop_sequence")
+  end
 
   def start_time
     stop_times.order(:stop_sequence).first.arrival_time

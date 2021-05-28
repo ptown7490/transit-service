@@ -31,7 +31,12 @@ class TripsController < ApplicationController
 
   def show
     @trip = Trip.find(params[:id])
-    json_response(@trip)
+    @stop_times = @trip.stop_times.order(:stop_sequence)
+
+    respond_to do |format|
+      format.html
+      format.json { json_response(@trip) }
+    end
   end
 
 end

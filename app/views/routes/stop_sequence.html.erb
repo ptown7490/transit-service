@@ -1,0 +1,20 @@
+<h1>Route id: <%= @route.id %></h1>
+<h2>local_id: <%= @route.local_id %></h2>
+
+<table class="table">
+  <tr>
+    <th>route_direction_id: <%= @route_direction_a.id %></th>
+    <th>route_direction_id: <%= @route_direction_b.id %></th>
+  </tr>
+  <tr>
+    <th>stop.local_id</th>
+    <th>stop.local_id</th>
+  </tr>
+
+  <% (0 ... @left.count).each do |i| %>
+    <tr>
+      <td><%= @left[i].local_id unless @left[i].nil? %></td>
+      <td><%= @right[i].local_id unless @right[i].nil? %></td>
+    </tr>
+  <% end %>
+</table>

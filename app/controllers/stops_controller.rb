@@ -8,7 +8,7 @@ class StopsController < ApplicationController
       @trip = Trip.find(params[:trip_id])
       @stops = @trip.stops
     else
-      @stops = Stop.all
+      @stops = Stop.all.order(:id)
     end
 
     respond_to do |format|
