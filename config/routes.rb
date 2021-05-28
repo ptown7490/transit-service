@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   api_version(1) do
     defaults format: :json do
       get 'route_directions/:id/schedule', to: 'route_directions#schedule'
+      get 'agencies/:agency_id/blocks_routes', to: 'blocks#routes' # TODO: rename
     end
   end
 

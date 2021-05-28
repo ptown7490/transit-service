@@ -21,7 +21,7 @@ class BlocksController < ApplicationController
       ]
       @trips = @block.trips.where(service_id: params[:service_id]).sort_by(&:start_time)
     else
-      @services = @block.services.map do |service|
+      @services = @block.services.order(:id).map do |service|
         service_id = service.id
         {service_id: service_id, trips: @block.trips.where(service_id: service_id).sort_by(&:start_time)}
       end
